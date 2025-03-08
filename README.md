@@ -1,69 +1,100 @@
-# The `my-package` Package
+# Simple Technical Resume
 <div align="center">Version 0.1.0</div>
 
-A short description about the project and/or client.
+A simple technical resume template designed to fit within a page and work well with ATS. Inspiration was taken from [Jake's Resume](https://github.com/jakegut/resume/) and [sb2nov's Resume](https://github.com/sb2nov/resume/).
 
-## Template adaptation checklist
+I created this Typst template because I was maintaining 8 resumes over LaTEX and making formatting/alignment changes took forever to achieve over all the LaTEX files (over 2-3 hours of endless trial & error). It took me over 30+ hours to create a perfectly formatted resume in 1 page (in LaTEX, using MikTex), being as dense as possible, while keeping margins barely visible. I had received positive feedback about the readibility of the resume and it was ATS-friendly as well. When I found about Typst, I was tempted to create a similar resume in Typst with the added benefit of maintenance being easier and templating being possible (unlike LaTEX).
 
-- [ ] Fill out `README.md`
-  - Change the `my-package` package name, including code snippets
-  - Check section contents and/or delete sections that don't apply
-- [ ] Check and/or replace `LICENSE` by something that suits your needs
-- [ ] Fill out `typst.toml`
-  - See also the [typst/packages README](https://github.com/typst/packages/?tab=readme-ov-file#package-format)
-- [ ] Adapt Repository URLs in `CHANGELOG.md`
-  - Consider only committing that file with your first release, or removing the "Initial Release" part in the beginning
-- [ ] Adapt or deactivate the release workflow in `.github/workflows/release.yml`
-  - to deactivate it, delete that file or remove/comment out lines 2-4 (`on:` and following)
-  - to use the workflow
-    - [ ] check the values under `env:`, particularly `REGISTRY_REPO`
-    - [ ] if you don't have one, [create a fine-grained personal access token](https://github.com/settings/tokens?type=beta) with [only Contents permission](https://stackoverflow.com/a/75116350/371191) for the `REGISTRY_REPO`
-    - [ ] on this repo, create a secret `REGISTRY_TOKEN` (at `https://github.com/[user]/[repo]/settings/secrets/actions`) that contains the so created token
 
-    if configured correctly, whenever you create a tag `v...`, your package will be pushed onto a branch on the `REGISTRY_REPO`, from which you can then create a pull request against [typst/packages](https://github.com/typst/packages/)
-- [ ] remove/replace the example test case
-- [ ] (add your actual code, docs and tests)
-- [ ] remove this section from the README
+# Sample Resume
 
-## Getting Started
+![example-resume](https://raw.githubusercontent.com/steadyfall/simple-technical-resume-template/main/example.png)
 
-These instructions will get you a copy of the project up and running on the typst web app. Perhaps a short code example on importing the package and a very simple teaser usage.
 
-```typ
-#import "@preview/my-package:0.1.0": *
+# Quickstart
+A bare-bones template to start making your resume is given below:
+```typst
+#import "@preview/simple-technical-resume:0.1.0": *
 
-#show: my-show-rule.with()
-#my-func()
+// Put your personal information here
+#let name = "Dwight Schrute"
+#let phone = "+1 (123) 456-7890"
+#let email = "dschrute@dundermifflin.com"
+#let github = "dwight-schrute"
+#let linkedin = "dwight-schrute"
+#let personal-site = "dwightschrute.com"
+
+// Since the following arguments are within the `with` block,
+// you can remove/comment any argument to fallback to the preset value and/or
+// remove it. 
+#show: resume.with(
+  topMargin: 0.45in,
+  font: "New Computer Modern",
+  personalInfoFontSize: 9.2pt,
+  authorPosition: center,
+  personalInfoPosition: center,
+  authorName: name,
+  phone: phone,
+  email: email,
+  website: personal-site,
+  linkedin-userID: linkedin,
+  github-username: github
+)
+
+// Use custom-title function instead of first-level headings to customize the
+// size between two sections by specifying the `spacingBetween` argument.
+// https://typst.app/docs/reference/layout/length/
+
+#custom-title("Education")[
+  #education-heading(
+    "Scranton University",                    // institution
+    "Scranton, PA",                           // location
+    "Bachelor of Arts",                       // degree
+    "Business Administration",                // major
+    datetime(year: 1992, month: 9, day: 1),   // startDate
+    datetime(year: 1998, month: 4,  day: 1)   // endDate
+  )[
+    - Awarded "Most Determined Student" in senior year
+  ]
+  // More educational qualifications ... 
+]
+
+#custom-title("Experience")[  
+  #work-heading(
+    "Regional Manager",                     // title
+    "Dunder Mifflin",                       // company
+    "Scranton, PA",                         // location
+    datetime(year:2013, month:5, day:1),    // startDate
+    "Present"                               // endDate
+  )[
+    - Led a team of 10+ employees, boosting office productivity and morale
+    - Maintained the highest sales average, outperforming competitors despite market challenges
+    - Implemented innovative security measures to protect the office from threats, including criminal activity and wildlife intrusions
+    - Successfully negotiated client contracts, increasing annual revenue by 20%
+  ]
+  // More experiences ...
+]
+
+#custom-title("Projects")[
+  #project-heading(
+    "Schrute Farms (Bed and Breakfast)",      // name
+    // "Next.js, TailwindCSS, Postgres",      // stack
+    // "schrutefarms.com"                     // project_url
+  )[
+    - Established and managed a family-run agro-tourism business offering unique activities such as table-making workshops, beet farming tours, and hay rides
+    - Increased guest bookings by 50% through effective online marketing and guest engagement
+    - Maintained a 4.9/5 guest satisfaction rating on travel review platforms
+  ]
+  // More projects ...
+]
+
+// Use `skills` function to create list with custom rules surrounding indentation and alignment.
+// It is specifically for lists directly inside the custom-title section.
+#custom-title("Skills")[
+  #skills()[
+    - *Professional Skills:* Sales Expertise, Leadership, Conflict Resolution, Strategic Planning, Negotiation
+    - *Personal Traits:* Hardworking, Alpha Male, Jackhammer, Merciless, Insatiable
+    - *Specialized Talents:* Karate (Black Belt), Jujitsu, Werewolf Hunting, Table Making
+  ]
+]
 ```
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
-  <img src="./thumbnail-light.svg">
-</picture>
-
-### Installation
-
-A step by step guide that will tell you how to get the development environment up and running. This should explain how to clone the repo and where to (maybe a link to the typst documentation on it), along with any pre-requisite software and installation steps.
-
-```
-$ First step
-$ Another step
-$ Final step
-```
-
-## Usage
-
-A more in-depth description of usage. Any template arguments? A complicated example that showcases most if not all of the functions the package provides? This is also an excellent place to signpost the manual.
-
-```typ
-#import "@preview/my-package:0.1.0": *
-
-#let my-complicated-example = ...
-```
-
-## Additional Documentation and Acknowledgments
-
-* Project folder on server:
-* Confluence link:
-* Asana board:
-* etc...
