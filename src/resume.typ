@@ -1,26 +1,26 @@
 #let resume(
   paper: "a4",
-  topMargin: 0.4in,
-  bottomMargin: 0.2in,
-  leftMargin: 0.3in,
-  rightMargin: 0.3in,
+  top-margin: 0.4in,
+  bottom-margin: 0.2in,
+  left-margin: 0.3in,
+  right-margin: 0.3in,
   font: "New Computer Modern",
-  fontSize: 11pt,
-  personalInfoFontSize: 10.5pt,
-  authorName: "",
-  authorPosition: center,
-  personalInfoPosition: center,
+  font-size: 11pt,
+  personal-info-font-size: 10.5pt,
+  author-name: "",
+  author-position: center,
+  personal-info-position: center,
   phone: "",
   location: "",
   email: "",
   website: "",
-  linkedin-userID: "",
+  linkedin-user-id: "",
   github-username: "",
   body
 ) = {
   set document(
-    title: "Résumé | " + authorName,
-    author: authorName,
+    title: "Résumé | " + author-name,
+    author: author-name,
     keywords: "cv",
     date: none
   )
@@ -28,19 +28,19 @@
   set page(
     paper: "a4",
     margin: (
-      top: topMargin, bottom: bottomMargin,
-      left: leftMargin, right: rightMargin
+      top: top-margin, bottom: bottom-margin,
+      left: left-margin, right: right-margin
     ),
   )
 
   set text(
-    font: font, size: fontSize, lang: "en", ligatures: false
+    font: font, size: font-size, lang: "en", ligatures: false
   )
 
   show heading.where(
     level: 1
   ): it => block(width: 100%)[
-    #set text(fontSize + 2pt, weight: "regular")
+    #set text(font-size + 2pt, weight: "regular")
     #smallcaps(it.body)
     #v(-1em)
     #line(length: 100%, stroke: stroke(thickness: 0.4pt))
@@ -57,12 +57,12 @@
     }
   }
 
-  align(authorPosition, [
-    #upper(text(fontSize+16pt, weight: "extrabold")[#authorName])
+  align(author-position, [
+    #upper(text(font-size+16pt, weight: "extrabold")[#author-name])
     #v(-2em)
   ])
 
-  align(personalInfoPosition, text(personalInfoFontSize)[    
+  align(personal-info-position, text(personal-info-font-size)[    
     #{
       let sepSpace = 0.2em
       let items = (
@@ -70,7 +70,7 @@
         contact_item(location),
         contact_item(email, link-type: "mailto:"),
         contact_item(website, link-type: "https://"),
-        contact_item(linkedin-userID, link-type: "https://linkedin.com/in/", prefix: "linkedin.com/in/"),
+        contact_item(linkedin-user-id, link-type: "https://linkedin.com/in/", prefix: "linkedin.com/in/"),
         contact_item(github-username, link-type: "https://github.com/", prefix: "github.com/"),
       )
       items.filter(x => x != none).join([
@@ -109,10 +109,10 @@
   )
 }
 
-#let custom-title(title, spacingBetween: -0.5em, body) = {
+#let custom-title(title, spacing-between: -0.5em, body) = {
   [= #title]
   body
-  v(spacingBetween)
+  v(spacing-between)
 }
 
 // Custom list to be used inside custom-title section.
@@ -129,37 +129,37 @@
 }
 
 // Converts datetime format into readable period.
-#let period_worked(startDate, endDate) = {
+#let period_worked(start-date, end-date) = {
   // sanity checks
-  assert.eq(type(startDate), datetime)
-  assert(type(endDate) == datetime or type(endDate) == str)
+  assert.eq(type(start-date), datetime)
+  assert(type(end-date) == datetime or type(end-date) == str)
 
-  if type(endDate) == str and endDate == "Present" {
-    endDate = datetime.today()
+  if type(end-date) == str and end-date == "Present" {
+    end-date = datetime.today()
   }
 
   return [
-      #startDate.display("[month repr:short] [year]") -- 
+      #start-date.display("[month repr:short] [year]") -- 
       #if (
-        (endDate.month() == datetime.today().month()) and 
-        (endDate.year() == datetime.today().year())
+        (end-date.month() == datetime.today().month()) and 
+        (end-date.year() == datetime.today().year())
       ) [
         Present
       ] else [
-        #endDate.display("[month repr:short] [year]")
+        #end-date.display("[month repr:short] [year]")
       ]
   ]
 }
 
 // Pretty self-explanatory.
-#let work-heading(title, company, location, startDate, endDate, body) = {
+#let work-heading(title, company, location, start-date, end-date, body) = {
   // sanity checks
-  assert.eq(type(startDate), datetime)
-  assert(type(endDate) == datetime or type(endDate) == str)
+  assert.eq(type(start-date), datetime)
+  assert(type(end-date) == datetime or type(end-date) == str)
 
   generic_2x2(
     (1fr, 1fr),
-    [*#title*], [*#period_worked(startDate, endDate)*], 
+    [*#title*], [*#period_worked(start-date, end-date)*], 
     [#company], emph(location)
   )
   v(-0.2em)
@@ -192,15 +192,15 @@
 }
 
 // Pretty self-explanatory.
-#let education-heading(institution, location, degree, major, startDate, endDate, body) = {
+#let education-heading(institution, location, degree, major, start-date, end-date, body) = {
   // sanity checks
-  assert.eq(type(startDate), datetime)
-  assert(type(endDate) == datetime or type(endDate) == str)
+  assert.eq(type(start-date), datetime)
+  assert(type(end-date) == datetime or type(end-date) == str)
 
   generic_2x2(
     (70%, 30%),
     [*#institution*], [*#location*], 
-    [#degree, #major], period_worked(startDate, endDate)
+    [#degree, #major], period_worked(start-date, end-date)
   )
   v(-0.2em)
   if body != [] {
