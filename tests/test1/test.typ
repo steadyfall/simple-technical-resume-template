@@ -8,17 +8,17 @@
 #let personal-site = "dwightschrute.com"
 
 #show: resume.with(
-  topMargin: 0.4in,
+  top-margin: 0.4in,
   font: "Libertinus Serif",
-  fontSize: 11.5pt,
-  personalInfoFontSize: 9.9pt,
-  authorPosition: center,
-  personalInfoPosition: center,
-  authorName: name,
+  font-size: 11.5pt,
+  personal-info-font-size: 9.9pt,
+  author-position: center,
+  personal-info-position: center,
+  author-name: name,
   phone: phone,
   email: email,
   website: personal-site,
-  linkedin-userID: linkedin,
+  linkedin-user-id: linkedin,
   github-username: github
 )
 

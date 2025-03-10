@@ -28,16 +28,16 @@ A bare-bones template to start making your resume is given below:
 // you can remove/comment any argument to fallback to the preset value and/or
 // remove it. 
 #show: resume.with(
-  topMargin: 0.45in,
+  top-margin: 0.45in,
   font: "New Computer Modern",
-  personalInfoFontSize: 9.2pt,
-  authorPosition: center,
-  personalInfoPosition: center,
-  authorName: name,
+  personal-info-font-size: 9.2pt,
+  author-position: center,
+  personal-info-position: center,
+  author-name: name,
   phone: phone,
   email: email,
   website: personal-site,
-  linkedin-userID: linkedin,
+  linkedin-user-id: linkedin,
   github-username: github
 )
 
@@ -51,8 +51,8 @@ A bare-bones template to start making your resume is given below:
     "Scranton, PA",                           // location
     "Bachelor of Arts",                       // degree
     "Business Administration",                // major
-    datetime(year: 1992, month: 9, day: 1),   // startDate
-    datetime(year: 1998, month: 4,  day: 1)   // endDate
+    datetime(year: 1992, month: 9, day: 1),   // start-date
+    datetime(year: 1998, month: 4,  day: 1)   // end-date
   )[
     - Awarded "Most Determined Student" in senior year
   ]
@@ -64,8 +64,8 @@ A bare-bones template to start making your resume is given below:
     "Regional Manager",                     // title
     "Dunder Mifflin",                       // company
     "Scranton, PA",                         // location
-    datetime(year:2013, month:5, day:1),    // startDate
-    "Present"                               // endDate
+    datetime(year:2013, month:5, day:1),    // start-date
+    "Present"                               // end-date
   )[
     - Led a team of 10+ employees, boosting office productivity and morale
     - Maintained the highest sales average, outperforming competitors despite market challenges
