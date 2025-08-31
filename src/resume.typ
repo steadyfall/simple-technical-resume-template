@@ -129,17 +129,17 @@
 }
 
 // Converts datetime format into readable period.
-#let period_worked(start-date, end-date) = {
+#let period_worked(start-date, end-date, present-label: "Present") = {
   // sanity checks
   assert.eq(type(start-date), datetime)
-  assert(type(end-date) == datetime or type(end-date) == str)
+  assert.eq(type(end-date), datetime)
 
   return [
       #start-date.display("[month repr:short] [year]") -- 
       #if (
-        type(end-date) == str
+        end-date == datetime.today()
       ) [
-        #end-date
+        #present-label
       ] else [
         #end-date.display("[month repr:short] [year]")
       ]
