@@ -137,7 +137,8 @@
   return [
       #start-date.display("[month repr:short] [year]") -- 
       #if (
-        end-date == datetime.today()
+        (end-date.month() == datetime.today().month()) and 
+        (end-date.year() == datetime.today().year())
       ) [
         #present-label
       ] else [
