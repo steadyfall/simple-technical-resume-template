@@ -148,14 +148,14 @@
 }
 
 // Pretty self-explanatory.
-#let work-heading(title, company, location, start-date, end-date, body) = {
+#let work-heading(title, company, location, start-date, end-date, body, present-label: "Present") = {
   // sanity checks
   assert.eq(type(start-date), datetime)
   assert(type(end-date) == datetime or type(end-date) == str)
 
   generic_2x2(
     (1fr, 1fr),
-    [*#title*], [*#period_worked(start-date, end-date)*], 
+    [*#title*], [*#period_worked(start-date, end-date, present-label: present-label)*], 
     [#company], emph(location)
   )
   v(-0.2em)
@@ -188,7 +188,7 @@
 }
 
 // Pretty self-explanatory.
-#let education-heading(institution, location, degree, major, start-date, end-date, body) = {
+#let education-heading(institution, location, degree, major, start-date, end-date, body, present-label: "Present") = {
   // sanity checks
   assert.eq(type(start-date), datetime)
   assert(type(end-date) == datetime or type(end-date) == str)
@@ -196,7 +196,7 @@
   generic_2x2(
     (70%, 30%),
     [*#institution*], [*#location*], 
-    [#degree, #major], period_worked(start-date, end-date)
+    [#degree, #major], period_worked(start-date, end-date, present-label: present-label)
   )
   v(-0.2em)
   if body != [] {
