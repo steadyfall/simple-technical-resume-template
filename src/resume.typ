@@ -148,10 +148,10 @@
 }
 
 // Pretty self-explanatory.
-#let work-heading(title, company, location, start-date, end-date, body, present-label: "Present") = {
+#let work-heading(title, company, location, start-date, end-date, present-label: "Present", body) = {
   // sanity checks
   assert.eq(type(start-date), datetime)
-  assert(type(end-date) == datetime or type(end-date) == str)
+  assert.eq(type(end-date), datetime)
 
   generic_2x2(
     (1fr, 1fr),
@@ -188,10 +188,10 @@
 }
 
 // Pretty self-explanatory.
-#let education-heading(institution, location, degree, major, start-date, end-date, body, present-label: "Present") = {
+#let education-heading(institution, location, degree, major, start-date, end-date, present-label: "Present", body) = {
   // sanity checks
   assert.eq(type(start-date), datetime)
-  assert(type(end-date) == datetime or type(end-date) == str)
+  assert.eq(type(end-date), datetime)
 
   generic_2x2(
     (70%, 30%),
