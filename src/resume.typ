@@ -1,4 +1,4 @@
-#import "@preview/datify:0.1.3": custom-date-format
+#import "@preview/datify:1.0.0": custom-date-format
 
 #let resume(
   paper: "a4",
@@ -143,14 +143,14 @@
 
   context {
     return [
-        #custom-date-format(start-date, "Month YYYY", text.lang) -- 
+        #custom-date-format(start-date, pattern: "MMM yyyy", lang: text.lang) -- 
         #if (
           (end-date.month() == datetime.today().month()) and 
           (end-date.year() == datetime.today().year())
         ) [
           Present // Needs to be translated
         ] else [
-          #custom-date-format(end-date, "Month YYYY", text.lang)
+          #custom-date-format(end-date, pattern: "MMM yyyy", lang: text.lang)
         ]
     ]
   }
