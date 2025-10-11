@@ -26,7 +26,7 @@
   )
 
   set page(
-    paper: "a4",
+    paper: paper,
     margin: (
       top: top-margin, bottom: bottom-margin,
       left: left-margin, right: right-margin
