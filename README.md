@@ -1,5 +1,5 @@
 # Simple Technical Resume
-<div align="center">Version 0.1.0</div>
+<div align="center">Version 0.1.1</div>
 
 A simple technical resume template designed to fit within a page and work well with ATS. Inspiration was taken from [Jake's Resume](https://github.com/jakegut/resume/) and [sb2nov's Resume](https://github.com/sb2nov/resume/).
 
@@ -14,7 +14,7 @@ I created this Typst template because I was maintaining 8 resumes over LaTEX and
 # Quickstart
 A bare-bones template to start making your resume is given below:
 ```typst
-#import "@preview/simple-technical-resume:0.1.0": *
+#import "@preview/simple-technical-resume:0.1.1": *
 
 // Put your personal information here
 #let name = "Dwight Schrute"

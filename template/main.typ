@@ -1,4 +1,4 @@
-#import "@preview/simple-technical-resume:0.1.0": *
+#import "@preview/simple-technical-resume:0.1.1": *
 
 #let name = "Dwight Schrute"
 #let phone = "+1 (123) 456-7890"
