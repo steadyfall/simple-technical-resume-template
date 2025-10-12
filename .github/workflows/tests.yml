@@ -1,7 +1,7 @@
 name: Tests
 on:
   push:
-    branches: [ main ]
+    branches: [ main, '*' ]
   pull_request:
     branches: [ main ]
 
@@ -13,13 +13,13 @@ jobs:
       matrix:
         # add any other Typst versions that your package should support
         typst-version:
-          - typst: 0.12
-            tytanic: 0.1
           - typst: 0.13
-            tytanic: 0.2
+            tytanic: 0.2.2
             # the docs don't need to build with all versions supported by the package;
             # the latest one is enough
             doc: true
+          - typst: 0.14.0-rc.1
+            tytanic: 0.2.2
 
     name: Test for ${{ matrix.typst-version.typst }} (Tytanic ${{ matrix.typst-version.tytanic }}${{ matrix.typst-version.doc && ', with docs' }})
     runs-on: ubuntu-latest
@@ -35,7 +35,7 @@ jobs:
 
       - name: Setup typst
         id: setup-typst
-        uses: typst-community/setup-typst@v3
+        uses: typst-community/setup-typst@v4.1
         with:
           typst-version: ${{ matrix.typst-version.typst }}
 
