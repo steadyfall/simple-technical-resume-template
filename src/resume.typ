@@ -9,6 +9,7 @@
   font: "New Computer Modern",
   font-size: 11pt,
   personal-info-font-size: 10.5pt,
+  document-title-prefix: "Résumé",
   author-name: "",
   author-position: center,
   personal-info-position: center,
@@ -22,7 +23,7 @@
   body
 ) = {
   set document(
-    title: "Curriculum vitae | " + author-name,
+    title: document-title-prefix + " | " + author-name,
     author: author-name,
     keywords: "cv",
     date: none
