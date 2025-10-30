@@ -23,7 +23,10 @@ TARGET="$(resolve-target "${1:?Missing target path, @local or @preview}")"
 echo "Install dir: $TARGET"
 
 # ignore rules
-readarray -t ignores < <(grep -v '^#' .typstignore | grep '[^[:blank:]]')
+ignores=()
+while IFS= read -r line; do
+  ignores+=("$line")
+done < <(grep -v '^#' .typstignore | grep '[^[:blank:]]')
 
 # recursively print all files that are not excluded via .typstignore
 function enumerate {
@@ -31,8 +34,10 @@ function enumerate {
   if [[ -f "$root" ]]; then
     echo "$root"
   else
-    local files
-    readarray -t files < <(find "$root" \
+    local files=()
+    while IFS= read -r file; do
+      files+=("$file")
+    done < <(find "$root" \
       -mindepth 1 -maxdepth 1 \
       -not -name .git \
       -not -name .typstignore)
@@ -64,7 +69,10 @@ function enumerate {
 }
 
 # List of all files that get packaged
-readarray -t files < <(enumerate ".")
+files=()
+while IFS= read -r file; do
+  files+=("$file")
+done < <(enumerate ".")
 # declare -p files >&2
 
 TMP="$(mktemp -d)"
