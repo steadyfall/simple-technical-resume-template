@@ -1,3 +1,5 @@
+#import "@preview/datify:1.0.0": custom-date-format
+
 #let resume(
   paper: "a4",
   top-margin: 0.4in,
@@ -7,6 +9,7 @@
   font: "New Computer Modern",
   font-size: 11pt,
   personal-info-font-size: 10.5pt,
+  document-title-prefix: "Résumé",
   author-name: "",
   author-position: center,
   personal-info-position: center,
@@ -16,10 +19,11 @@
   website: "",
   linkedin-user-id: "",
   github-username: "",
+  lang: "en",
   body
 ) = {
   set document(
-    title: "Résumé | " + author-name,
+    title: document-title-prefix + " | " + author-name,
     author: author-name,
     keywords: "cv",
     date: none
@@ -34,7 +38,7 @@
   )
 
   set text(
-    font: font, size: font-size, lang: "en", ligatures: false
+    font: font, size: font-size, lang: lang, ligatures: false
   )
 
   show heading.where(
@@ -138,17 +142,19 @@
     end-date = datetime.today()
   }
 
-  return [
-      #start-date.display("[month repr:short] [year]") -- 
-      #if (
-        (end-date.month() == datetime.today().month()) and 
-        (end-date.year() == datetime.today().year())
-      ) [
-        Present
-      ] else [
-        #end-date.display("[month repr:short] [year]")
-      ]
-  ]
+  context {
+    return [
+        #custom-date-format(start-date, pattern: "MMM yyyy", lang: text.lang) -- 
+        #if (
+          (end-date.month() == datetime.today().month()) and 
+          (end-date.year() == datetime.today().year())
+        ) [
+          Present // Needs to be translated
+        ] else [
+          #custom-date-format(end-date, pattern: "MMM yyyy", lang: text.lang)
+        ]
+    ]
+  }
 }
 
 // Pretty self-explanatory.
